@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
-use Illuminate\Support\Facades\Schema;
+use App\Models\Publisher;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -28,7 +29,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.books.create', [
+            'publishers' => Publisher::all(),
+        ]);
     }
 
     /**
@@ -39,7 +42,68 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $book = Book::where('id_buku', $validated['id_buku'])->first();
+
+        if($book){
+            if($validated['nama'] != $book->nama){
+                return back()->with([
+                    'error' => 'Nama buku tidak cocok.',
+                    'id_buku' => $validated['id_buku'],
+                    'nama' => $validated['nama'],
+                    'kategori' => $validated['kategori'],
+                    'harga' => $validated['harga'],
+                    'stok' => $validated['stok'],
+                    'penerbit' => $validated['penerbit']
+                ]);
+            }
+            if($validated['kategori'] != $book->kategori->value){
+                return back()->with([
+                    'error' => 'Kategori buku tidak cocok.',
+                    'id_buku' => $validated['id_buku'],
+                    'nama' => $validated['nama'],
+                    'kategori' => $validated['kategori'],
+                    'harga' => $validated['harga'],
+                    'stok' => $validated['stok'],
+                    'penerbit' => $validated['penerbit']
+                ]);
+            }
+            if($validated['harga'] != $book->harga){
+                return back()->with([
+                    'error' => 'Harga buku tidak cocok.',
+                    'id_buku' => $validated['id_buku'],
+                    'nama' => $validated['nama'],
+                    'kategori' => $validated['kategori'],
+                    'harga' => $validated['harga'],
+                    'stok' => $validated['stok'],
+                    'penerbit' => $validated['penerbit']
+                ]);
+            }
+            if($validated['penerbit'] != $book->penerbit){
+                return back()->with([
+                    'error' => 'Penerbit buku tidak cocok.',
+                    'id_buku' => $validated['id_buku'],
+                    'nama' => $validated['nama'],
+                    'kategori' => $validated['kategori'],
+                    'harga' => $validated['harga'],
+                    'stok' => $validated['stok'],
+                    'penerbit' => $validated['penerbit']
+                ]);
+            }
+            
+            $update['stok'] = $validated['stok'] + $book->stok;
+
+            $book->update($update);
+
+            return redirect('/dashboard/books')->with('success', 'Data berhasil ditambahkan.');
+        }else{
+            $validated['publisher_id'] = Publisher::where('nama', $validated['penerbit'])->first()->id;
+
+            Book::create($validated);
+
+            return redirect('/dashboard/books')->with('success', 'Data berhasil ditambahkan.');
+        }
     }
 
     /**
@@ -50,7 +114,9 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('dashboard.books.show', [
+            'book' => $book,
+        ]);
     }
 
     /**
@@ -61,7 +127,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('dashboard.books.edit', [
+            'book' => $book,
+        ]);
     }
 
     /**
@@ -73,7 +141,23 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $validated = $request->validated();
+
+        if($validated['id_buku'] != $book->id_buku){
+            $validator = Validator::make($validated, [
+                'id_buku' => 'required|unique:books'
+            ]);
+
+            if($validator->fails()){
+                return back()->with('error', $validator->errors());
+            }
+
+            $validated = $validated->merge($validator->validated());
+        }
+
+        $book->update($validated);
+
+        return redirect('/dashboard/books')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -84,6 +168,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect('/dashboard/books')->with('success', 'Data berhasil dihapus.');
     }
 }

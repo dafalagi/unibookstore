@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\BookCategory;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class StoreBookRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,12 @@ class StoreBookRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_buku' => 'required|string',
+            'nama' => 'required|string',
+            'kategori' => [new Enum(BookCategory::class)],
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
+            'penerbit' => 'required|exists:publishers,nama'
         ];
     }
 }

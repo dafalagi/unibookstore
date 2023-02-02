@@ -19,6 +19,12 @@
             Penerbit
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/reports*') ? 'active' : '' }}" href="/dashboard/reports">
+            <span data-feather="alert-circle" class="align-text-bottom"></span>
+            Pengadaan
+          </a>
+        </li>
       </ul>
     </div>
   </nav>

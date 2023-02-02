@@ -2,88 +2,84 @@
 
 @section('body')
     {{-- Main Form --}}
-    <form action="/dashboard/users" method="POST" enctype="multipart/form-data">
+    <form action="/dashboard/books" method="POST">
         @csrf
+        @if (session()->has('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" 
-            value="{{ old('username') }}" required 
-            @if ($errors->hasAny('email', 'password', 'confirm_password', 'avatar', 'bio', 'is_admin'))
+            <label class="form-label">ID Buku</label>
+            <input type="text" class="form-control @error('id_buku') is-invalid @enderror" name="id_buku" 
+            value="{{ old('id_buku', session('id_buku')) }}" required 
+            @if ($errors->hasAny('nama', 'kategori', 'harga', 'stok', 'penerbit'))
             @else
                 autofocus
             @endif
-            aria-describedby="usernameFeedback">
-            @if($errors->has('username'))
-                <div class="invalid-feedback" id="usernameFeedback">
-                    {{ $errors->first('username') }}
+            aria-describedby="id_buku_feedback">
+            @if($errors->has('id_buku'))
+                <div class="invalid-feedback" id="id_buku_feedback">
+                    {{ $errors->first('id_buku') }}
                 </div>
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" 
-            value="{{ old('email') }}" required @error('email') autofocus @enderror aria-describedby="emailFeedback">
-            @if($errors->has('email'))
-                <div class="invalid-feedback" id="emailFeedback">
-                    {{ $errors->first('email') }}
+            <label class="form-label">Nama Buku</label>
+            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" 
+            value="{{ old('nama', session('nama')) }}" required @error('nama') autofocus @enderror aria-describedby="nama_feedback">
+            @if($errors->has('nama'))
+                <div class="invalid-feedback" id="nama_feedback">
+                    {{ $errors->first('nama') }}
                 </div>
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" 
-            required @error('password') autofocus @enderror aria-describedby="passwordFeedback">
-            @if($errors->has('password'))
-                <div class="invalid-feedback" id="passwordFeedback">
-                    {{ $errors->first('password') }}
+            <label class="form-label">Kategori (Case Sensitive)</label>
+            <input type="text" class="form-control @error('kategori') is-invalid @enderror" name="kategori" 
+            value="{{ old('kategori', session('kategori')) }}" required @error('kategori') autofocus @enderror aria-describedby="kategori_feedback">
+            @if($errors->has('kategori'))
+                <div class="invalid-feedback" id="kategori_feedback">
+                    {{ $errors->first('kategori') }}
                 </div>
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Confirm Password</label>
-            <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" 
-            required @error('confirm_password') autofocus @enderror aria-describedby="confirmPasswordFeedback">
-            @if($errors->has('confirm_password'))
-                <div class="invalid-feedback" id="confirmPasswordFeedback">
-                    {{ $errors->first('confirm_password') }}
+            <label class="form-label">Harga</label>
+            <input type="text" class="form-control @error('harga') is-invalid @enderror" name="harga" 
+            value="{{ old('harga', session('harga')) }}" required @error('harga') autofocus @enderror aria-describedby="harga_feedback">
+            @if($errors->has('harga'))
+                <div class="invalid-feedback" id="harga_feedback">
+                    {{ $errors->first('harga') }}
                 </div>
             @endif
         </div>
         <div class="mb-3">
-            <label for="avatar" class="form-label">Profile Picture</label>
-            <input class="form-control @error('avatar') is-invalid @enderror" type="file" id="avatar" name="avatar" 
-            @error('avatar') autofocus @enderror aria-describedby="avatarFeedback">
-            @if ($errors->has('avatar'))
-                <div id="avatarFeedback" class="invalid-feedback">
-                    {{ $errors->first('avatar') }}
-                </div>
-            @endif
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Bio</label>
-            <input type="text" class="form-control @error('bio') is-invalid @enderror" name="bio" 
-            value="{{ old('bio') }}" @error('bio') autofocus @enderror aria-describedby="bioFeedback">
-            @if($errors->has('bio'))
-                <div class="invalid-feedback" id="bioFeedback">
-                    {{ $errors->first('bio') }}
+            <label class="form-label">Stok</label>
+            <input class="form-control @error('stok') is-invalid @enderror" type="text" name="stok" 
+            value="{{ old('stok', session('stok')) }}" @error('stok') autofocus @enderror aria-describedby="stok_feedback">
+            @if ($errors->has('stok'))
+                <div id="stok_feedback" class="invalid-feedback">
+                    {{ $errors->first('stok') }}
                 </div>
             @endif
         </div>
         <div class="mb-4">
-            <label class="form-label">Is Admin?</label>
-            <select name="is_admin" class="form-select @error('is_admin') is-invalid @enderror" @error('is_admin') autofocus @enderror
-            aria-describedby="isAdminFeedback">
-                <option value="0" {{ old('is_admin') == "0" ? 'selected' : '' }}>False</option>
-                <option value="1" {{ old('is_admin') == "1" ? 'selected' : '' }}>True</option>
+            <label class="form-label">Penerbit</label>
+            <select name="penerbit" class="form-select @error('penerbit') is-invalid @enderror" @error('penerbit') autofocus @enderror
+            aria-describedby="penerbit_feedback">
+                @foreach ($publishers as $publisher)
+                    <option value="{{ $publisher->nama }}" {{ old('penerbit', session('penerbit')) == $publisher->nama ? 'selected' : '' }}>{{ $publisher->nama }}</option>
+                @endforeach
             </select>
-            @if($errors->has('is_admin'))
-                <div class="invalid-feedback" id="isAdminFeedback">
-                    {{ $errors->first('is_admin') }}
+            @if($errors->has('penerbit'))
+                <div class="invalid-feedback" id="penerbit_feedback">
+                    {{ $errors->first('penerbit') }}
                 </div>
             @endif
         </div>
         <div class="mb-5 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Tambah</button>
         </div>
     </form>
 @endsection

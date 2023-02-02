@@ -2,7 +2,7 @@
 
 @section('body')
     {{-- Main Form --}}
-    <form action="/dashboard/users/{{ $user->username }}" method="POST" enctype="multipart/form-data">
+    <form action="/dashboard/books/{{ $book->id_buku }}" method="POST">
         @method('put')
         @csrf
         @if (session()->has('error'))
