@@ -15,6 +15,15 @@ class Book extends Model
         'kategori' => BookCategory::class,
     ];
 
+    public function scopeFilter($query, $filter){
+        $query->when($filter ?? false, function($query, $search){
+            return $query->where('id_buku', 'like', "%$search%")
+                         ->orWhere('nama', 'like', "%$search%")
+                         ->orWhere('kategori', 'like', "%$search%")
+                         ->orWhere('penerbit', 'like', "%$search%");
+        });
+    }
+
     public function publisher(){
         return $this->belongsTo(Publisher::class);
     }
