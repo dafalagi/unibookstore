@@ -4,43 +4,19 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
             <span data-feather="home" class="align-text-bottom"></span>
-            Dashboard
+            Home
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/users*') ? 'active' : '' }}" href="/dashboard/users">
+          <a class="nav-link {{ Request::is('dashboard/books*') ? 'active' : '' }}" href="/dashboard/books">
             <span data-feather="users" class="align-text-bottom"></span>
-            Users
+            Buku
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/contents*') ? 'active' : '' }}" href="/dashboard/contents">
+          <a class="nav-link {{ Request::is('dashboard/publishers*') ? 'active' : '' }}" href="/dashboard/publishers">
             <span data-feather="layers" class="align-text-bottom"></span>
-            Contents
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/discusses*') ? 'active' : '' }}" href="/dashboard/discusses">
-            <span data-feather="align-left" class="align-text-bottom"></span>
-            Discusses
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/favorites*') ? 'active' : '' }}" href="/dashboard/favorites">
-            <span data-feather="star" class="align-text-bottom"></span>
-            Favorites
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/comments*') ? 'active' : '' }}" href="/dashboard/comments">
-            <span data-feather="message-square" class="align-text-bottom"></span>
-            Comment
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/reports*') ? 'active' : '' }}" href="/dashboard/reports">
-            <span data-feather="alert-triangle" class="align-text-bottom"></span>
-            Reports
+            Penerbit
           </a>
         </li>
       </ul>

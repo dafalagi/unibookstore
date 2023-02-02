@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // VIEW
-Route::view('/', 'dashboard.layouts.main');
+Route::view('/dashboard', 'dashboard.layouts.main');
 
 // RESOURCES
 Route::resources([
-    'books' => BookController::class,
-    'publishers' => PublisherController::class
+    '/dashboard/books' => BookController::class,
+    '/dashboard/publishers' => PublisherController::class
 ]);

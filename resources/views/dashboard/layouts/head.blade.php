@@ -1,20 +1,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Canopus Dashboard">
-    <meta name="author" content="Canopus">
+    <meta name="description" content="Unibook Store Dashboard">
+    <meta name="author" content="Unibook Store">
     <title>
-      {{ Request::is('dashboard') ? 'Canopus | Dashboard' : '' }}
-      {{ Request::is('dashboard/users*') ? 'Canopus | Users' : '' }}
-      {{ Request::is('dashboard/contents*') ? 'Canopus | Contents' : '' }}
-      {{ Request::is('dashboard/discusses*') ? 'Canopus | Discusses' : '' }}
-      {{ Request::is('dashboard/favorites*') ? 'Canopus | Favorites' : '' }}
-      {{ Request::is('dashboard/comments*') ? 'Canopus | Comments' : '' }}
-      {{ Request::is('dashboard/reports*') ? 'Canopus | Reports' : '' }} 
+      {{ Request::is('/') ? 'Unibook Store | Dashboard' : '' }}
+      {{ Request::is('dashboard/books*') ? 'Unibook Store | Books' : '' }}
+      {{ Request::is('dashboard/publishers*') ? 'Unibook Store | Publishers' : '' }}
     </title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
