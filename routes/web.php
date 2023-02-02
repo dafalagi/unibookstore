@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// VIEW
+Route::view('/', 'dashboard.layouts.main');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// RESOURCES
+Route::resources([
+    'books' => BookController::class,
+    'publishers' => PublisherController::class
+]);
