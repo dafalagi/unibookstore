@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('publishers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('publisher_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('id_buku')->unique();
-            $table->string('kategori');
-            $table->string('nama_buku')->unique();
-            $table->double('harga');
-            $table->integer('stok');
-            $table->string('penerbit');
+            $table->string('id_penerbit')->unique();
+            $table->string('nama')->unique();
+            $table->string('alamat');
+            $table->string('kota');
+            $table->string('telepon');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('publishers');
     }
 };
