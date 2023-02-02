@@ -13,33 +13,39 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">Action</th>
-              @foreach ($columns as $column)
-                <th scope="col">{{ $column }}</th>
-              @endforeach
+              <th scope="col">Aksi</th>
+              <th scope="col">ID Buku</th>
+              <th scope="col">Kategori</th>
+              <th scope="col">Nama Buku</th>
+              <th scope="col">Harga</th>
+              <th scope="col">Stok</th>
+              <th scope="col">Penerbit</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($users as $user)
+            @foreach ($books as $book)
                 <tr>
                     <td>
-                      <a href="/dashboard/users/{{ $user->username }}" class="badge bg-info">
+                      <a href="/dashboard/books/{{ $book->id_buku }}" class="badge bg-info">
                         <span data-feather="eye"></span>
                       </a>
-                      <a href="/dashboard/users/{{ $user->username }}/edit" class="badge bg-warning">
+                      <a href="/dashboard/books/{{ $book->id_buku }}/edit" class="badge bg-warning">
                         <span data-feather="edit"></span>
                       </a>
-                      <form action="/dashboard/users/{{ $user->username }}" method="post">
+                      <form action="/dashboard/books/{{ $book->id_buku }}" method="post">
                         @method('delete')
                         @csrf
-                        <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')">
+                        <button class="badge bg-danger border-0" onclick="return confirm('Anda yakin ingin menghapus data ini?')">
                           <span data-feather="x-circle"></span>
                         </button>
                       </form>
                     </td>
-                    @foreach ($columns as $column)
-                      <td>{{ $user->$column }}</td>
-                    @endforeach
+                    <td>{{ $book->id_buku }}</td>
+                    <td>{{ $book->kategori }}</td>
+                    <td>{{ $book->nama }}</td>
+                    <td>{{ $book->harga }}</td>
+                    <td>{{ $book->stok }}</td>
+                    <td>{{ $book->penerbit }}</td>
                 </tr>
             @endforeach
           </tbody>

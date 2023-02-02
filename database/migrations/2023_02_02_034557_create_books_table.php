@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('publisher_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('id_buku')->unique();
             $table->string('kategori');
-            $table->string('nama_buku')->unique();
+            $table->string('nama')->unique();
             $table->double('harga');
             $table->integer('stok');
             $table->string('penerbit');

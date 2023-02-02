@@ -4,12 +4,12 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
             <span data-feather="home" class="align-text-bottom"></span>
-            Home
+            Dashboard
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/books*') ? 'active' : '' }}" href="/dashboard/books">
-            <span data-feather="users" class="align-text-bottom"></span>
+            <span data-feather="book" class="align-text-bottom"></span>
             Buku
           </a>
         </li>
