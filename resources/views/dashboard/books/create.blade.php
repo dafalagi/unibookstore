@@ -4,15 +4,10 @@
     {{-- Main Form --}}
     <form action="/dashboard/books" method="POST">
         @csrf
-        @if (session()->has('error'))
-            <div class="alert alert-danger" role="alert">
-                {{ session('error') }}
-            </div>
-        @endif
         <div class="mb-3">
             <label class="form-label">ID Buku</label>
             <input type="text" class="form-control @error('id_buku') is-invalid @enderror" name="id_buku" 
-            value="{{ old('id_buku', session('id_buku')) }}" required 
+            value="{{ old('id_buku') }}" required 
             @if ($errors->hasAny('nama', 'kategori', 'harga', 'stok', 'penerbit'))
             @else
                 autofocus
@@ -27,7 +22,7 @@
         <div class="mb-3">
             <label class="form-label">Nama Buku</label>
             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" 
-            value="{{ old('nama', session('nama')) }}" required @error('nama') autofocus @enderror aria-describedby="nama_feedback">
+            value="{{ old('nama') }}" required @error('nama') autofocus @enderror aria-describedby="nama_feedback">
             @if($errors->has('nama'))
                 <div class="invalid-feedback" id="nama_feedback">
                     {{ $errors->first('nama') }}
@@ -37,7 +32,7 @@
         <div class="mb-3">
             <label class="form-label">Kategori (Case Sensitive)</label>
             <input type="text" class="form-control @error('kategori') is-invalid @enderror" name="kategori" 
-            value="{{ old('kategori', session('kategori')) }}" required @error('kategori') autofocus @enderror aria-describedby="kategori_feedback">
+            value="{{ old('kategori') }}" required @error('kategori') autofocus @enderror aria-describedby="kategori_feedback">
             @if($errors->has('kategori'))
                 <div class="invalid-feedback" id="kategori_feedback">
                     {{ $errors->first('kategori') }}
@@ -47,7 +42,7 @@
         <div class="mb-3">
             <label class="form-label">Harga</label>
             <input type="text" class="form-control @error('harga') is-invalid @enderror" name="harga" 
-            value="{{ old('harga', session('harga')) }}" required @error('harga') autofocus @enderror aria-describedby="harga_feedback">
+            value="{{ old('harga') }}" required @error('harga') autofocus @enderror aria-describedby="harga_feedback">
             @if($errors->has('harga'))
                 <div class="invalid-feedback" id="harga_feedback">
                     {{ $errors->first('harga') }}
@@ -57,7 +52,7 @@
         <div class="mb-3">
             <label class="form-label">Stok</label>
             <input class="form-control @error('stok') is-invalid @enderror" type="text" name="stok" 
-            value="{{ old('stok', session('stok')) }}" @error('stok') autofocus @enderror aria-describedby="stok_feedback">
+            value="{{ old('stok') }}" @error('stok') autofocus @enderror aria-describedby="stok_feedback">
             @if ($errors->has('stok'))
                 <div id="stok_feedback" class="invalid-feedback">
                     {{ $errors->first('stok') }}
@@ -69,7 +64,7 @@
             <select name="penerbit" class="form-select @error('penerbit') is-invalid @enderror" @error('penerbit') autofocus @enderror
             aria-describedby="penerbit_feedback">
                 @foreach ($publishers as $publisher)
-                    <option value="{{ $publisher->nama }}" {{ old('penerbit', session('penerbit')) == $publisher->nama ? 'selected' : '' }}>{{ $publisher->nama }}</option>
+                    <option value="{{ $publisher->nama }}" {{ old('penerbit') == $publisher->nama ? 'selected' : '' }}>{{ $publisher->nama }}</option>
                 @endforeach
             </select>
             @if($errors->has('penerbit'))
