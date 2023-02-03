@@ -18,11 +18,11 @@ class Book extends Model
     public function scopeFilter($query, $filter){
         $query->when($filter ?? false, function($query, $search){
             return $query->where('id_buku', 'like', "%$search%")
-                            ->orWhere('nama', 'like', "%$search%")
-                            ->orWhere('kategori', 'like', "%$search%")
-                            ->orWhereHas('publisher', function($query) use($search){
-                                $query->where('nama', 'like', "%$search%");
-                            });
+                        ->orWhere('nama', 'like', "%$search%")
+                        ->orWhere('kategori', 'like', "%$search%")
+                        ->orWhereHas('publisher', function($query) use($search){
+                            $query->where('nama', 'like', "%$search%");
+                        });
         });
     }
 
