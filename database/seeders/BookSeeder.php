@@ -24,7 +24,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Analisis & Perancangan Sistem Informasi',
                 'harga' => 50000,
                 'stok' => 60,
-                'penerbit' => 'Penerbit Informatika'
             ],
             [
                 'publisher_id' => 1,
@@ -33,7 +32,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Artificial Intelligence',
                 'harga' => 45000,
                 'stok' => 60,
-                'penerbit' => 'Penerbit Informatika'
             ],
             [
                 'publisher_id' => 1,
@@ -42,7 +40,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Autocad 3 Dimensi',
                 'harga' => 40000,
                 'stok' => 25,
-                'penerbit' => 'Penerbit Informatika'
             ],
             [
                 'publisher_id' => 1,
@@ -51,7 +48,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Bisnis Online',
                 'harga' => 75000,
                 'stok' => 9,
-                'penerbit' => 'Penerbit Informatika'
             ],
             [
                 'publisher_id' => 1,
@@ -60,7 +56,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Cloud Computing Technology',
                 'harga' => 85000,
                 'stok' => 15,
-                'penerbit' => 'Penerbit Informatika'
             ],
             [
                 'publisher_id' => 1,
@@ -69,7 +64,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Etika Bisnis dan Tanggung Jawab Sosial',
                 'harga' => 67500,
                 'stok' => 20,
-                'penerbit' => 'Penerbit Informatika'
             ],
             [
                 'publisher_id' => 2,
@@ -78,7 +72,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Cahaya Di Penjuru Hati',
                 'harga' => 68000,
                 'stok' => 10,
-                'penerbit' => 'Andi Offset'
             ],
             [
                 'publisher_id' => 3,
@@ -87,7 +80,6 @@ class BookSeeder extends Seeder
                 'nama' => 'Aku Ingin Cerita',
                 'harga' => 48000,
                 'stok' => 12,
-                'penerbit' => 'Danendra'
             ]
         ];
 

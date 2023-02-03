@@ -18,7 +18,9 @@ class BookController extends Controller
     public function index()
     {
         return view('dashboard.books.index', [
-            'books' => Book::filter(request('search'))->get(),
+            'books' => Book::filter(request('search'))
+                            ->with('publisher')
+                            ->get(),
         ]);
     }
 
@@ -166,6 +168,8 @@ class BookController extends Controller
 
             $validated = array_merge($validated, $validator->validated());
         }
+
+        $validated['publisher_id'] = Publisher::where('nama', $validated['penerbit'])->first()->id;
 
         $book->update($validated);
 

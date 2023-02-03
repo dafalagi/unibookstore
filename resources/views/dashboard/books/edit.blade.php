@@ -70,7 +70,7 @@
             <select name="penerbit" class="form-select @error('penerbit') is-invalid @enderror" @error('penerbit') autofocus @enderror
             aria-describedby="penerbit_feedback">
                 @foreach ($publishers as $publisher)
-                    <option value="{{ $publisher->nama }}" {{ old('penerbit', $book->penerbit) == "$publisher->nama" ? 'selected' : '' }}>{{ $publisher->nama }}</option>
+                    <option value="{{ $publisher->nama }}" {{ old('penerbit', $book->publisher->nama) == "$publisher->nama" ? 'selected' : '' }}>{{ $publisher->nama }}</option>
                 @endforeach
             </select>
             @if($errors->has('penerbit'))

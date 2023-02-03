@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('nama')->unique();
             $table->double('harga');
             $table->integer('stok');
-            $table->string('penerbit');
             $table->timestamps();
         });
     }

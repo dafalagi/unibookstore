@@ -6,6 +6,6 @@
         <p>Kategori : {{ $book->kategori }}</p>
         <p>Harga : {{ $book->harga }}</p>
         <p>Stok : {{ $book->stok }}</p>
-        <p>Penerbit : {{ $book->penerbit }}</p>
+        <p>Penerbit : {{ $book->publisher->nama }}</p>
     </div>
 @endsection
