@@ -35,7 +35,7 @@
                     <td>{{ $book->nama }}</td>
                     <td>{{ $book->harga }}</td>
                     <td>{{ $book->stok }}</td>
-                    <td>{{ $book->penerbit }}</td>
+                    <td>{{ $book->publisher->nama }}</td>
                 </tr>
             @endforeach
           </tbody>

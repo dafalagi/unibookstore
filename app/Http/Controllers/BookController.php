@@ -45,67 +45,11 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         $validated = $request->validated();
+        $validated['publisher_id'] = Publisher::where('nama', $validated['penerbit'])->first()->id;
 
-        $book = Book::where('id_buku', $validated['id_buku'])->first();
+        Book::create($validated);
 
-        if($book){
-            if($validated['nama'] != $book->nama){
-                return back()->with([
-                    'error' => 'Nama buku tidak cocok.',
-                    'id_buku' => $validated['id_buku'],
-                    'nama' => $validated['nama'],
-                    'kategori' => $validated['kategori'],
-                    'harga' => $validated['harga'],
-                    'stok' => $validated['stok'],
-                    'penerbit' => $validated['penerbit']
-                ]);
-            }
-            if($validated['kategori'] != $book->kategori->value){
-                return back()->with([
-                    'error' => 'Kategori buku tidak cocok.',
-                    'id_buku' => $validated['id_buku'],
-                    'nama' => $validated['nama'],
-                    'kategori' => $validated['kategori'],
-                    'harga' => $validated['harga'],
-                    'stok' => $validated['stok'],
-                    'penerbit' => $validated['penerbit']
-                ]);
-            }
-            if($validated['harga'] != $book->harga){
-                return back()->with([
-                    'error' => 'Harga buku tidak cocok.',
-                    'id_buku' => $validated['id_buku'],
-                    'nama' => $validated['nama'],
-                    'kategori' => $validated['kategori'],
-                    'harga' => $validated['harga'],
-                    'stok' => $validated['stok'],
-                    'penerbit' => $validated['penerbit']
-                ]);
-            }
-            if($validated['penerbit'] != $book->penerbit){
-                return back()->with([
-                    'error' => 'Penerbit buku tidak cocok.',
-                    'id_buku' => $validated['id_buku'],
-                    'nama' => $validated['nama'],
-                    'kategori' => $validated['kategori'],
-                    'harga' => $validated['harga'],
-                    'stok' => $validated['stok'],
-                    'penerbit' => $validated['penerbit']
-                ]);
-            }
-            
-            $update['stok'] = $validated['stok'] + $book->stok;
-
-            $book->update($update);
-
-            return redirect('/dashboard/books')->with('success', 'Data berhasil ditambahkan.');
-        }else{
-            $validated['publisher_id'] = Publisher::where('nama', $validated['penerbit'])->first()->id;
-
-            Book::create($validated);
-
-            return redirect('/dashboard/books')->with('success', 'Data berhasil ditambahkan.');
-        }
+        return redirect('/dashboard/books')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**

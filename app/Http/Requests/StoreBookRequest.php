@@ -26,8 +26,8 @@ class StoreBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_buku' => 'required|string',
-            'nama' => 'required|string',
+            'id_buku' => 'required|unique:books|string',
+            'nama' => 'required|unique:books|string',
             'kategori' => [new Enum(BookCategory::class)],
             'harga' => 'required|integer',
             'stok' => 'required|integer',
