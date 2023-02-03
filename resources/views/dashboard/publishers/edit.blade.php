@@ -3,6 +3,7 @@
 @section('body')
     {{-- Main Form --}}
     <form action="/dashboard/publishers/{{ $publisher->id_penerbit }}" method="POST">
+        @method('put')
         @csrf
         @if (session()->has('error'))
             <div class="alert alert-danger" role="alert">
@@ -27,7 +28,7 @@
         <div class="mb-3">
             <label class="form-label">Nama Penerbit</label>
             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" 
-            value="{{ old('nama', session('nama')) }}" required @error('nama') autofocus @enderror aria-describedby="nama_feedback">
+            value="{{ old('nama', $publisher->nama) }}" required @error('nama') autofocus @enderror aria-describedby="nama_feedback">
             @if($errors->has('nama'))
                 <div class="invalid-feedback" id="nama_feedback">
                     {{ $errors->first('nama') }}
@@ -37,7 +38,7 @@
         <div class="mb-3">
             <label class="form-label">Alamat</label>
             <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" 
-            value="{{ old('alamat', session('alamat')) }}" required @error('alamat') autofocus @enderror aria-describedby="alamat_feedback">
+            value="{{ old('alamat', $publisher->alamat) }}" required @error('alamat') autofocus @enderror aria-describedby="alamat_feedback">
             @if($errors->has('alamat'))
                 <div class="invalid-feedback" id="alamat_feedback">
                     {{ $errors->first('alamat') }}
@@ -47,7 +48,7 @@
         <div class="mb-3">
             <label class="form-label">Kota</label>
             <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota" 
-            value="{{ old('kota', session('kota')) }}" required @error('kota') autofocus @enderror aria-describedby="kota_feedback">
+            value="{{ old('kota', $publisher->kota) }}" required @error('kota') autofocus @enderror aria-describedby="kota_feedback">
             @if($errors->has('kota'))
                 <div class="invalid-feedback" id="kota_feedback">
                     {{ $errors->first('kota') }}
@@ -57,7 +58,7 @@
         <div class="mb-3">
             <label class="form-label">Telepon</label>
             <input class="form-control @error('telepon') is-invalid @enderror" type="text" name="telepon" 
-            value="{{ old('telepon', session('telepon')) }}" @error('telepon') autofocus @enderror aria-describedby="telepon_feedback">
+            value="{{ old('telepon', $publisher->telepon) }}" @error('telepon') autofocus @enderror aria-describedby="telepon_feedback">
             @if ($errors->has('telepon'))
                 <div id="telepon_feedback" class="invalid-feedback">
                     {{ $errors->first('telepon') }}
