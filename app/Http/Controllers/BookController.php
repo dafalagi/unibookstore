@@ -129,6 +129,7 @@ class BookController extends Controller
     {
         return view('dashboard.books.edit', [
             'book' => $book,
+            'publishers' => Publisher::all(),
         ]);
     }
 
@@ -149,10 +150,21 @@ class BookController extends Controller
             ]);
 
             if($validator->fails()){
-                return back()->with('error', $validator->errors());
+                return back()->with('error', 'ID Buku harus unik.');
             }
 
-            $validated = $validated->merge($validator->validated());
+            $validated = array_merge($validated, $validator->validated());
+        }
+        if($validated['nama'] != $book->nama){
+            $validator = Validator::make($validated, [
+                'nama' => 'required|unique:books'
+            ]);
+
+            if($validator->fails()){
+                return back()->with('error', 'Nama Buku harus unik.');
+            }
+
+            $validated = array_merge($validated, $validator->validated());
         }
 
         $book->update($validated);
@@ -171,5 +183,15 @@ class BookController extends Controller
         $book->delete();
 
         return redirect('/dashboard/books')->with('success', 'Data berhasil dihapus.');
+    }
+
+    public function reports(){
+        $books = Book::filter(request('search'))
+                        ->where('stok', '<=', 10)
+                        ->get();
+
+        return view('dashboard.books.reports', [
+            'books' => $books
+        ]);
     }
 }

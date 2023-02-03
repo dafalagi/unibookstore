@@ -1,14 +1,11 @@
 @extends('dashboard.layouts.main')
 
 @section('body')
-    @foreach ($columns as $column)
-        <div class="mb-3">
-            @if ($column == 'avatar')
-                <p>{{ $column }} : </p>
-                <img src="{{ asset('storage/'.$user->$column) }}" alt="{{ $user->username }} Avatar" class="img-fluid">
-            @else
-                <span>{{ $column }} : {{ $user->$column }}</span>
-            @endif
-        </div>
-    @endforeach
+    <div class="mb-3">
+        <p>ID Buku : {{ $book->id_buku }}</p>
+        <p>Kategori : {{ $book->kategori }}</p>
+        <p>Harga : {{ $book->harga }}</p>
+        <p>Stok : {{ $book->stok }}</p>
+        <p>Penerbit : {{ $book->penerbit }}</p>
+    </div>
 @endsection

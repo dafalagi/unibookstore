@@ -8,12 +8,11 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  @if (Request::is('dashboard'))
-      
-  @else
+  @if (Request::is('dashboard/books') || Request::is('dashboard/reports') || Request::is('dashboard/publishers'))
     <form action="
     {{ Request::is('dashboard/books') ? '/dashboard/books' : '' }}
     {{ Request::is('dashboard/publishers') ? '/dashboard/publishers' : '' }}
+    {{ Request::is('dashboard/reports') ? '/dashboard/reports' : '' }}
     " class="w-100">
       <input class="form-control form-control-dark rounded-0 border-0" type="text" placeholder="Search" aria-label="Search" name="search"
       value="{{ request('search') }}">
@@ -44,10 +43,11 @@
             <h1 class="h2">
               {{ Request::is('dashboard/books') ? 'Tabel Buku' : '' }}
               {{ Request::is('dashboard/publishers') ? 'Tabel Penerbit' : '' }}
+              {{ Request::is('dashboard/reports') ? 'Daftar Buku Yang Memerlukan Pengadaan' : '' }}
             </h1>  
           @endif
           <div class="btn-toolbar mb-2 mb-md-0">
-            @if (Request::is('dashboard'))
+            @if (Request::is('dashboard') || Request::is('dashboard/reports'))
             
             @else
               <a href="

@@ -7,6 +7,7 @@
       {{ Request::is('dashboard') ? 'Unibook Store | Dashboard' : '' }}
       {{ Request::is('dashboard/books*') ? 'Unibook Store | Buku' : '' }}
       {{ Request::is('dashboard/publishers*') ? 'Unibook Store | Penerbit' : '' }}
+      {{ Request::is('dashboard/reports*') ? 'Unibook Store | Pengadaan' : '' }}
     </title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">

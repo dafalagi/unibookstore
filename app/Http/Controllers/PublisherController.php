@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Publisher;
 use App\Http\Requests\StorePublisherRequest;
 use App\Http\Requests\UpdatePublisherRequest;
+use Illuminate\Support\Facades\Validator;
 
 class PublisherController extends Controller
 {
@@ -15,7 +16,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.publishers.index', [
+            'publishers' => Publisher::filter(request('search'))->get()
+        ]);
     }
 
     /**
@@ -25,7 +28,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.publishers.create');
     }
 
     /**
@@ -36,7 +39,11 @@ class PublisherController extends Controller
      */
     public function store(StorePublisherRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Publisher::create($validated);
+
+        return redirect('/dashboard/publishers')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
@@ -47,7 +54,9 @@ class PublisherController extends Controller
      */
     public function show(Publisher $publisher)
     {
-        //
+        return view('dashboard.publishers.show', [
+            'publisher' => $publisher
+        ]);
     }
 
     /**
@@ -58,7 +67,9 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view('dashboard.publishers.edit', [
+            'publisher' => $publisher
+        ]);
     }
 
     /**
@@ -70,7 +81,34 @@ class PublisherController extends Controller
      */
     public function update(UpdatePublisherRequest $request, Publisher $publisher)
     {
-        //
+        $validated = $request->validated();
+
+        if($validated['id_penerbit'] != $publisher->id_penerbit){
+            $validator = Validator::make($validated, [
+                'id_penerbit' => 'required|unique:publishers'
+            ]);
+
+            if($validator->fails()){
+                return back()->with('error', 'ID Penerbit harus unik.');
+            }
+
+            $validated = array_merge($validated, $validator->validated());
+        }
+        if($validated['nama'] != $publisher->nama){
+            $validator = Validator::make($validated, [
+                'nama' => 'required|unique:publishers'
+            ]);
+
+            if($validator->fails()){
+                return back()->with('error', 'Nama Penerbit harus unik.');
+            }
+
+            $validated = array_merge($validated, $validator->validated());
+        }
+
+        $publisher->update($validated);
+
+        return redirect('/dashboard/publishers')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -81,6 +119,8 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+
+        return redirect('/dashboard/publishers')->with('success', 'Data berhasil dihapus.');
     }
 }

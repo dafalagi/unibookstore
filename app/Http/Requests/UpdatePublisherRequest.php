@@ -13,7 +13,7 @@ class UpdatePublisherRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdatePublisherRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_penerbit' => 'required|string',
+            'nama' => 'required|string',
+            'alamat' => 'required|string',
+            'kota' => 'required|string',
+            'telepon' => 'required|string',
         ];
     }
 }

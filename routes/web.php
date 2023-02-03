@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 // VIEW
 Route::view('/dashboard', 'dashboard.layouts.main');
 
+// GET
+Route::get('/dashboard/reports', [BookController::class, 'reports']);
+
 // RESOURCES
 Route::resources([
     '/dashboard/books' => BookController::class,
